@@ -1,7 +1,10 @@
 import { NextPage } from 'next';
+import Layout from '../components/layouts/Layout';
 
 const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => (
-    <div>Welcome to Next.js - { userAgent }!</div>
+    <Layout title="NextJS Demo">
+        <div>Welcome to Next.js - { userAgent }!</div>
+    </Layout>
 );
 
 Home.getInitialProps = async ({ req }) => {
