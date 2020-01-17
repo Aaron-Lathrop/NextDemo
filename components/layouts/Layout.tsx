@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import NavBar from '../Navbar';
+import Link from 'next/link';
 
 type Props = {
     title?: String
@@ -19,7 +20,9 @@ const Layout: React.FunctionComponent<Props> = ({
         <header>
             <NavBar />
         </header>
-        {children}
+        <body>
+            {children}
+        </body>
         <footer>
             <hr/>
             <span>Copyright { new Date().getFullYear()} - Aaron LM</span>
