@@ -20,9 +20,7 @@ const Layout: React.FunctionComponent<Props> = ({
         <header>
             <NavBar />
         </header>
-        <body>
             {children}
-        </body>
         <footer>
             <hr/>
             <span>Copyright { new Date().getFullYear()} - Aaron LM</span>
