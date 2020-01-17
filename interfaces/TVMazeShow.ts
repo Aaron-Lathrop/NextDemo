@@ -1,13 +1,8 @@
-export interface TVMazeRes {
-    show: Array<object>
-};
-
 export interface TVMazeShowList {
     shows: Array<TVMazeShow>
 }
 
 export interface TVMazeShow {
-    score: number,
     show: {
         id: number,
         url: string,

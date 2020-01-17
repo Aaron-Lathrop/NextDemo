@@ -1,30 +1,37 @@
 import { NextPage, NextPageContext } from 'next';
-import Link from 'next/link';
 import Layout from '../components/layouts/Layout';
-import { TVMazeRes, TVMazeShowList, TVMazeShow } from '../interfaces/TVMazeShow';
+import { TVMazeShowList, TVMazeShow } from '../interfaces/TVMazeShow';
 
 import fetch from 'isomorphic-unfetch';
+import PostLink from '../components/PostLink';
 
-const Index: NextPage<TVMazeShowList> = (props: TVMazeShowList) => (
+const Index: NextPage<TVMazeShowList> = ({ shows }: TVMazeShowList) => (
     <Layout title="NextJS Demo">
-        <h1>Welcome to NextJS!</h1>
+        <h1>Batman</h1>
         <ul>
-            {props.shows.map( (item: TVMazeShow) => (
-                <li key={item.show.id}>
-                    <Link href="/p/[id]" as={`/p/${item.show.id}`}>
-                        <a>{item.show.name}</a>
-                    </Link>
-                </li>
+            {shows.map( (item: TVMazeShow) => (
+                <PostLink key={item.show.id} 
+                            id={`${item.show.id}`} 
+                            title={item.show.name} 
+                            route='p' />
             ))}
         </ul>
+        <style jsx>{`
+            h1, a {
+                font-family: 'Arial';
+            }
+
+            ul {
+                padding: 0;
+            }
+        `}
+        </style>
     </Layout>
 );
 
 Index.getInitialProps = async function() {
     const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
     const data = await res.json();
-
-    console.log(`Show data fetched. Count: ${data.length}`);
 
     return {
         shows: data

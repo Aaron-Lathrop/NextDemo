@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { Post } from '../interfaces/Post';
 
-const PostLink = ( { id, title }: Post ) => (
+const PostLink = ( { id, title, route }: Post ) => (
     <li key={id}>
-        <Link href="/p/[id]" as={`/p/${id}`}>
+        <Link href={`/${route}/[id]`} as={`/${route}/${id}`}>
             <a>{title}</a>
         </Link>
         <style jsx>{`

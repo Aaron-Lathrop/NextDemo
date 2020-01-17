@@ -7,9 +7,9 @@ import { Post } from '../interfaces/Post';
 
 function getPosts(): Array<Post> {
     return [
-      { id: 'hello-nextjs', title: 'Hello Next.js' },
-      { id: 'learn-nextjs', title: 'Learn Next.js is awesome' },
-      { id: 'deploy-nextjs', title: 'Deploy apps with ZEIT' }
+      { id: 'hello-nextjs', title: 'Hello Next.js', route: 'blog' },
+      { id: 'learn-nextjs', title: 'Learn Next.js is awesome', route: 'blog' },
+      { id: 'deploy-nextjs', title: 'Deploy apps with ZEIT', route: 'blog' }
     ];
 }
 
@@ -18,7 +18,10 @@ const Blog: NextPage = () => (
         <h1>My Blog</h1>
         <ul>
             {getPosts().map(post => (
-                <PostLink key={post.id} id={post.id} title={post.title} />
+                <PostLink key={post.id} 
+                          id={post.id} 
+                          title={post.title} 
+                          route={post.route} />
             ))}
         </ul>
         <style jsx>{`
