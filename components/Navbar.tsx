@@ -28,6 +28,10 @@ const NavBar: NextPage = () => (
             a:hover {
                 opacity: 0.6;
             }
+
+            nav {
+                margin-bottom: 20px;
+            }
         `}</style>
     </div>
     

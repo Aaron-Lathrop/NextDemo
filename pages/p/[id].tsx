@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Layout from '../../components/layouts/Layout';
 import fetch from 'isomorphic-unfetch';
 import { TVMazeShow } from '../../interfaces/TVMazeShow';
@@ -5,6 +6,9 @@ import { TVMazeShow } from '../../interfaces/TVMazeShow';
 
 const Post = (props: TVMazeShow) => (
   <Layout title={props.show.name}>
+    <Link href="/">
+      {`<<< Back to results`}
+    </Link>
     <h1>{props.show.name}</h1>
     <p>Premired: {props.show.premiered}</p>
     <p>Current Status: {props.show.status}</p>

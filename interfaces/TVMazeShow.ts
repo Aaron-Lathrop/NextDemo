@@ -1,4 +1,5 @@
 export interface TVMazeShowList {
+    query: string,
     shows: Array<TVMazeShow>
 }
 
