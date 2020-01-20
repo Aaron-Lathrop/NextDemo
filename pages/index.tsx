@@ -8,13 +8,27 @@ import PostLink from '../components/PostLink';
 
 const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
     const [searchQuery, setSearchQuery] = useState(query);
-    const [tvshows, setTvShows] = useState(shows)
+    const [tvshows, setTvShows] = useState(shows);
+    const [hoverItem, setHoverItem] = useState('');
+
+    let searchTerm: string = "";
+    const title: string = searchQuery || query || '';
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        const res = await fetch(`https://api.tvmaze.com/search/shows?q=${searchQuery}`);
+        const res = await fetch(`https://api.tvmaze.com/search/shows?q=${searchTerm}`);
         const data = await res.json();
+        setSearchQuery(searchTerm);
         setTvShows(data);
+    }
+
+    function getId(element: HTMLLIElement) {
+        setHoverItem(element.id);
+        return element.id;
+    }
+
+    function clearId() {
+        setHoverItem('');
     }
 
     return (
@@ -22,26 +36,40 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
             <form onSubmit={e => handleSubmit(e)}
                   className="tv-search-box">
                 <label>Search for a show</label>
-                <input onChange={e => setSearchQuery(e.target.value)}
+                <input name="searchTerm"
+                       onChange={e => searchTerm = e.target.value}
                        type="text" 
                        placeholder="Search..."/>
             </form>
-            <h1>{searchQuery}</h1>
+            <h1>{title}</h1>
             <ul>
                 {tvshows.map( (item: TVMazeShow) => (
                     <PostLink key={item.show.id} 
-                                id={`${item.show.id}`} 
-                                title={item.show.name} 
-                                route='p' />
+                              id={`${item.show.id}`} 
+                              title={item.show.name} 
+                              route='p'
+                              search={title}
+                              getId={getId}
+                              clearId={clearId} />
                 ))}
             </ul>
+            {
+                hoverItem != '' ?
+                    <img className="float-right" src={`${tvshows.find(item => item.show.id == hoverItem)?.show.image.medium}`}></img> :
+                    ''
+            }
             <style jsx>{`
                 h1, a {
                     font-family: 'Arial';
                 }
 
                 ul {
+                    display: inline-block;
                     padding: 0;
+                }
+
+                .float-right {
+                    float: right;
                 }
 
                 .tv-search-box {
@@ -61,7 +89,8 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
                 .tv-search-box input:hover,
                 .tv-search-box input:focus {
                     border: 1px solid blue;
-                    box-shadow: 2px solid black;
+                    box-shadow: .5px .5px #aaa;
+                    transition: all .2s ease-in-out .2s;
                 }
             `}
             </style>

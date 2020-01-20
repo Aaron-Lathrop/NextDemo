@@ -1,10 +1,21 @@
 import Link from 'next/link';
-import { Post } from '../interfaces/Post';
 
-const PostLink = ( { id, title, route }: Post ) => (
-    <li key={id}>
-        <Link href={`/${route}/[id]`} as={`/${route}/${id}`}>
-            <a>{title}</a>
+type PostLinkProps = {
+    id: string,
+    route: string,
+    search: string,
+    title: string,
+    getId: Function,
+    clearId: Function
+}
+
+const PostLink = ( props: PostLinkProps ) => (
+    <li key={props.id}
+        id={props.id}
+        onMouseOver={(e) => props.getId(e.currentTarget)}
+        onMouseLeave={(e) => props.clearId()} >
+        <Link href={`/${props.route}/[id]`} as={`/${props.route}/${props.id}?search=${props.search}`}>
+            <a>{props.title}</a>
         </Link>
         <style jsx>{`
             li {

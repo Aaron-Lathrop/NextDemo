@@ -4,8 +4,9 @@ export interface TVMazeShowList {
 }
 
 export interface TVMazeShow {
+    search: string,
     show: {
-        id: number,
+        id: string,
         url: string,
         name: string,
         type: string,
