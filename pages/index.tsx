@@ -31,6 +31,11 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
         setHoverItem('');
     }
 
+    const getHoveredItemImage = () => {
+        const currentHoveredItem = tvshows.find(item => item.show.id == hoverItem);
+        return currentHoveredItem && currentHoveredItem.show && currentHoveredItem.show.image && currentHoveredItem.show.image.medium || '';
+    }
+
     return (
         <Layout title="NextJS Demo">
             <form onSubmit={e => handleSubmit(e)}
@@ -55,7 +60,7 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
             </ul>
             {
                 hoverItem != '' ?
-                    <img className="float-right" src={`${tvshows.find(item => item.show.id == hoverItem)?.show.image.medium}`}></img> :
+                    <img className="float-right" src={`${getHoveredItemImage()}`}></img> :
                     ''
             }
             <style jsx>{`
