@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
 import Layout from '../components/layouts/Layout';
-import PostLink from '../components/PostLink';
+import BlogPostLink from '../components/BlogPostLink';
 
 import { Post } from '../interfaces/Post';
 
@@ -18,7 +17,7 @@ const Blog: NextPage = () => (
         <h1>My Blog</h1>
         <ul>
             {getPosts().map(post => (
-                <PostLink key={post.id} 
+                <BlogPostLink key={post.id} 
                           id={post.id} 
                           title={post.title} 
                           route={post.route} />

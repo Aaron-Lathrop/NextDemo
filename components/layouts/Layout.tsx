@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import NavBar from '../Navbar';
-import Link from 'next/link';
+import SideBar from '../SideBar';
 
 type Props = {
     title?: String
@@ -19,18 +19,20 @@ const Layout: React.FunctionComponent<Props> = ({
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <header>
-                <NavBar />
+                <SideBar />
             </header>
+            <div style={{marginLeft: '15%'}}>
                 {children}
+            </div>
         </div>
-        <footer>
+        <footer style={{marginLeft: '15%'}}>
             <hr/>
             <span>Copyright { new Date().getFullYear()} - Aaron LM</span>
         </footer>
         <style jsx>{`
             .body {
                 margin: 15px;
-                min-height: 87vh;
+                min-height: 100vh;
             }
         `}
         </style>

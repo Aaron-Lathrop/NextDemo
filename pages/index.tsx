@@ -4,7 +4,7 @@ import Layout from '../components/layouts/Layout';
 import { TVMazeShowList, TVMazeShow } from '../interfaces/TVMazeShow';
 
 import fetch from 'isomorphic-unfetch';
-import PostLink from '../components/PostLink';
+import TVMazeLink from '../components/TVMazeLink';
 
 const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
     const [searchQuery, setSearchQuery] = useState(query);
@@ -38,31 +38,33 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
 
     return (
         <Layout title="NextJS Demo">
-            <form onSubmit={e => handleSubmit(e)}
-                  className="tv-search-box">
-                <label>Search for a show</label>
-                <input name="searchTerm"
-                       onChange={e => searchTerm = e.target.value}
-                       type="text" 
-                       placeholder="Search..."/>
-            </form>
-            <h1>{title}</h1>
-            <ul>
-                {tvshows.map( (item: TVMazeShow) => (
-                    <PostLink key={item.show.id} 
-                              id={`${item.show.id}`} 
-                              title={item.show.name} 
-                              route='p'
-                              search={title}
-                              getId={getId}
-                              clearId={clearId} />
-                ))}
-            </ul>
-            {
-                hoverItem != '' ?
-                    <img className="float-right" src={`${getHoveredItemImage()}`}></img> :
-                    ''
-            }
+            <div style={{maxWidth: '80vw'}}>
+                <form onSubmit={e => handleSubmit(e)}
+                    className="tv-search-box">
+                    <label>Search for a show</label>
+                    <input name="searchTerm"
+                        onChange={e => searchTerm = e.target.value}
+                        type="text" 
+                        placeholder="Search..."/>
+                </form>
+                <h1>{title}</h1>
+                <ul>
+                    {tvshows.map( (item: TVMazeShow) => (
+                        <TVMazeLink key={item.show.id} 
+                                id={`${item.show.id}`} 
+                                title={item.show.name} 
+                                route='tvmazeshows'
+                                search={title}
+                                getId={getId}
+                                clearId={clearId} />
+                    ))}
+                </ul>
+                {
+                    hoverItem != '' ?
+                        <img className="float-right" src={`${getHoveredItemImage()}`}></img> :
+                        ''
+                }
+            </div>
             <style jsx>{`
                 h1, a {
                     font-family: 'Arial';

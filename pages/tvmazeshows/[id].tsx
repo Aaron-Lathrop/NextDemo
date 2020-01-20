@@ -13,7 +13,7 @@ const Post = (props: TVMazeShow) => {
       <h1>{props.show.name}</h1>
       <p>Premired: {props.show.premiered}</p>
       <p>Current Status: {props.show.status}</p>
-      <p>{props.show.summary && props.show.summary.replace(/<[/]?[pb]>/g, '')}</p>
+      <p>{props.show.summary && props.show.summary.replace(/<[/]?[pbi]>/g, '')}</p>
       {props.show.image ? <img src={props.show.image.medium} /> : null}
       <div>
           <a href={props.show.url} target="_blank" rel="noopener">{props.show.url}</a>
