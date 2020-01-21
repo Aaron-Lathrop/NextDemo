@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NextPage, NextPageContext } from 'next';
 import Layout from '../components/layouts/Layout';
 import { TVMazeShowList, TVMazeShow } from '../interfaces/TVMazeShow';
@@ -6,13 +6,17 @@ import { TVMazeShowList, TVMazeShow } from '../interfaces/TVMazeShow';
 import fetch from 'isomorphic-unfetch';
 import TVMazeLink from '../components/TVMazeLink';
 
+import TextUtil from '../utils/text';
+
 const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
     const [searchQuery, setSearchQuery] = useState(query);
     const [tvshows, setTvShows] = useState(shows);
     const [hoverItem, setHoverItem] = useState('');
 
+    const cache: any = {};
+
     let searchTerm: string = "";
-    const title: string = searchQuery || query || '';
+    const title: string = TextUtil.toTitleCase(searchQuery) || '';
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -22,9 +26,8 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
         setTvShows(data);
     }
 
-    function getId(element: HTMLLIElement) {
+    function getId(element: HTMLElement) {
         setHoverItem(element.id);
-        return element.id;
     }
 
     function clearId() {
@@ -32,7 +35,7 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
     }
 
     const getHoveredItemImage = () => {
-        const currentHoveredItem = tvshows.find(item => item.show.id == hoverItem);
+        const currentHoveredItem = cache[hoverItem];// || tvshows.find(item => item.show.id == hoverItem);
         return currentHoveredItem && currentHoveredItem.show && currentHoveredItem.show.image && currentHoveredItem.show.image.medium || '';
     }
 
@@ -49,15 +52,22 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
                 </form>
                 <h1>{title}</h1>
                 <ul>
-                    {tvshows.map( (item: TVMazeShow) => (
-                        <TVMazeLink key={item.show.id} 
+                    {tvshows.map( (item: TVMazeShow) => {
+                        if(Object.keys(cache).includes(item.show.id) == false){
+                            cache[item.show.id] = item
+                        }
+                        return (
+                            <TVMazeLink key={item.show.id} 
                                 id={`${item.show.id}`} 
                                 title={item.show.name} 
                                 route='tvmazeshows'
                                 search={title}
                                 getId={getId}
                                 clearId={clearId} />
-                    ))}
+                        )
+                        }
+                    )
+                    }
                 </ul>
                 {
                     hoverItem != '' ?
