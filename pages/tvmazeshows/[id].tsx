@@ -25,7 +25,7 @@ const Post = (props: TVMazeShow) => {
 
 Post.getInitialProps = async function(context: { query: { id: number}, asPath: string; }) {
   const { id } = context.query;
-  const search = context.asPath.substring(context.asPath.indexOf("search=") + "search=".length);
+  const search = context.asPath.substring(context.asPath.indexOf("searchTerm=") + "searchTerm=".length);
   const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
   const show = await res.json();
 
