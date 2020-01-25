@@ -102,7 +102,7 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
                     <input name="searchTerm"
                            list="searchTerm"
                            ref={searchRef}
-                           onInput={(e:any) => console.log(searchRef.current?.value)}
+                           autoComplete='off'
                            onChange={e => {
                                     searchOptionList(searchRef);
                                 } 
@@ -180,11 +180,11 @@ const Index: NextPage<TVMazeShowList> = ({ query, shows }: TVMazeShowList) => {
 }
     
 
-Index.getInitialProps = async function(context: any) {
-    let initialQuery = context.query.searchTerm || 'Batman';
+Index.getInitialProps = async function(context: NextPageContext): Promise<TVMazeShowList> {
+    let initialQuery: string = context.query.searchTerm as string || 'Batman';
     initialQuery = initialQuery.replace("-", " ");
-    const res = await fetch(`https://api.tvmaze.com/search/shows?q=${initialQuery}`);
-    const data = await res.json();
+    const res: Response = await fetch(`https://api.tvmaze.com/search/shows?q=${initialQuery}`);
+    const data: TVMazeShow[] = await res.json() as TVMazeShow[];
 
     return {
         query: initialQuery,
