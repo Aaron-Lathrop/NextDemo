@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import Layout from '../components/layouts/Layout';
 import BlogPostLink from '../components/BlogPostLink';
 
-import { Post } from '../interfaces/Post';
+import { Post } from '../types/Post';
 
 function getPosts(): Array<Post> {
     return [

@@ -30,8 +30,8 @@ const NavBar: NextPage = () => (
             .side-nav {
                 position: fixed;
                 padding-top: 15px;
-                min-width: 15%;
-                max-width: 15%;
+                min-width: 100px;
+                width: 15%;
                 height: 100vh;
                 background-color: #222;
                 top: 0;

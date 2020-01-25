@@ -1,5 +1,5 @@
 import Layout from '../../components/layouts/Layout';
-import { Post } from '../../interfaces/Post';
+import { Post } from '../../types/Post';
 
 const BlogPost = ({ id, title, route }: Post) => (
     <Layout title={title}>

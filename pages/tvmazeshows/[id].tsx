@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import Layout from '../../components/layouts/Layout';
 import fetch from 'isomorphic-unfetch';
-import { TVMazeShow } from '../../interfaces/TVMazeShow';
+import { TVMazeShow } from '../../types/TVMazeShow';
 
 
 const Post = (props: TVMazeShow) => {
   return (
     <Layout title={props.show.name}>
-      <Link href={`/?search=${props.search}`}>
+      {/* TODO: fix backc to results link */}
+      <Link href={`/?searchTerm=${props.search}`}>
         <a>{`<<< Back to results`}</a>
       </Link>
       <h1>{props.show.name}</h1>

@@ -1,9 +1,9 @@
-export interface TVMazeShowList {
+export type TVMazeShowList = {
     query: string,
     shows: Array<TVMazeShow>
 }
 
-export interface TVMazeShow {
+export type TVMazeShow = {
     search: string,
     show: {
         id: string,

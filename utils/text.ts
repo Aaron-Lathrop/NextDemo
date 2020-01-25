@@ -1,8 +1,8 @@
 export const toTitleCase = (text: string) => {
     const newText = text.toLocaleLowerCase()
-                        .replace(/-/g, ' ')
+                        .replace(/\s+(?=\s+)/g, '')
                         .split(' ')
-                        .map((word: string) => `${word[0].toUpperCase()}${word.substring(1)}`)
+                        .map((word: string) => word && word[0] && `${word[0].toUpperCase()}${word.substring(1)}`)
                         .join(' ');
     return newText;
 }

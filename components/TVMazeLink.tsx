@@ -14,7 +14,7 @@ const TVMazeLink = ( props: TVMazeLinkProps ) => (
         id={props.id}
         onMouseOver={(e) => props.getId(e.currentTarget)}
         onMouseLeave={(e) => props.clearId()} >
-        <Link href={`/${props.route}/[id]`} as={`/${props.route}/${props.id}?search=${props.search}`}>
+        <Link href={`/${props.route}/[id]`} as={`/${props.route}/${props.id}?searchTerm=${props.search}`}>
             <a>{props.title}</a>
         </Link>
         <style jsx>{`
